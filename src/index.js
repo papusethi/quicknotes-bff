@@ -2,6 +2,7 @@ import { configDotenv } from "dotenv";
 import express from "express";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import noteRouter from "./routes/note.route.js";
 import userRouter from "./routes/user.route.js";
 
 // Resolves the current path. An alternative way for CommonJS way.
@@ -20,3 +21,4 @@ app.listen(port, hostname, () => {
 });
 
 app.use("/user", userRouter);
+app.use("/note", noteRouter);
