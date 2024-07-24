@@ -1,9 +1,10 @@
-import { Router } from "express";
-import { signin, signup } from "../controllers/user.controller.js";
+import express from "express";
+import { deleteUser, updateUser } from "../controllers/user.controller.js";
+import { verifyToken } from "../middlewares/verifyUser.js";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/signin", signin);
+router.put("/:id", verifyToken, updateUser);
+router.delete("/:id", verifyToken, deleteUser);
 
 export default router;
