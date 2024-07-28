@@ -1,4 +1,5 @@
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { configDotenv } from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
@@ -32,6 +33,7 @@ app.listen(port, hostname, () => {
 });
 
 // Middlewares usage.
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(cookieParser());
 
