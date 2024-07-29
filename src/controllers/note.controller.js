@@ -1,15 +1,71 @@
-export const getAllNote = (_req, res) => {
-  res.status(200).json({ message: "Get all note is working fine." });
+import Note from "../models/note.model.js";
+import { errorHandler } from "../utils/error.js";
+
+export const getAllNote = async (req, res, next) => {
+  const userId = req.user.id;
+
+  try {
+    const allNotes = await Note.find({ userId }).sort({ createdAt: "descending" });
+    res.status(200).json({ data: allNotes, message: "Fetched notes successfully." });
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const createNote = (_req, res) => {
-  res.status(200).json({ message: "Create note is working fine." });
+export const createNote = async (req, res, next) => {
+  const userId = req.user.id;
+  const { title, description, tags, isPinned } = req.body;
+
+  try {
+    const newNote = new Note({ title, description, tags, isPinned, userId });
+    await newNote.save();
+
+    // now fetch all the notes
+    const allNotes = await Note.find({ userId }).sort({ createdAt: "descending" });
+    res.status(201).json({ data: allNotes, message: "Created note successfully." });
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const updateNote = (_req, res) => {
-  res.status(200).json({ message: "Update note is working fine." });
+export const updateNote = async (req, res, next) => {
+  const userId = req.user.id;
+  const noteId = req.params.id;
+  const { title, description, tags, isPinned } = req.body;
+
+  try {
+    const validNote = await Note.findById(noteId);
+
+    if (validNote?.userId === userId) {
+      const updatedNote = { title, description, tags, isPinned };
+      await Note.updateOne({ _id: noteId }, { $set: updatedNote });
+
+      // now fetch all the notes
+      const allNotes = await Note.find({ userId }).sort({ createdAt: "descending" });
+      res.status(200).json({ data: allNotes, message: "Updated note successfully." });
+    } else {
+      return next(errorHandler(500, "You can only update your own note."));
+    }
+  } catch (error) {
+    next(error);
+  }
 };
 
-export const deleteNote = (_req, res) => {
-  res.status(200).json({ message: "Delete note is working fine." });
+export const deleteNote = async (req, res, next) => {
+  const userId = req.user.id;
+  const noteId = req.params.id;
+
+  try {
+    const validNote = await Note.findById(noteId);
+    if (validNote.userId === userId) {
+      await Note.deleteOne({ _id: noteId });
+      // now fetch all the notes
+      const allNotes = await Note.find({ userId }).sort({ createdAt: "descending" });
+      res.status(200).json({ data: allNotes, message: "Deleted note successfully." });
+    } else {
+      return next(errorHandler(500, "You can only delete your own note."));
+    }
+  } catch (error) {
+    next(error);
+  }
 };
