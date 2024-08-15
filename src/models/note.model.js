@@ -7,6 +7,7 @@ const noteSchema = new Schema(
     description: { type: String },
     tags: { type: [String], default: [] },
     isPinned: { type: Boolean, default: false },
+    isArchived: { type: Boolean, default: false },
     color: { type: String, default: "#FFFFFF" }
   },
   { timestamps: true }
