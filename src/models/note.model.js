@@ -8,7 +8,8 @@ const noteSchema = new Schema(
     tags: { type: [String], default: [] },
     isPinned: { type: Boolean, default: false },
     isArchived: { type: Boolean, default: false },
-    color: { type: String, default: null }
+    color: { type: String, default: null },
+    tasks: { type: [{ title: String, checked: Boolean, order: Number }], default: null }
   },
   { timestamps: true }
 );
