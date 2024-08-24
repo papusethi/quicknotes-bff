@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import authRouter from "./routes/auth.route.js";
+import labelRouter from "./routes/label.route.js";
 import noteRouter from "./routes/note.route.js";
 import userRouter from "./routes/user.route.js";
 
@@ -41,6 +42,7 @@ app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/note", noteRouter);
+app.use("/label", labelRouter);
 
 // Global error middleware.
 app.use((err, req, res, next) => {

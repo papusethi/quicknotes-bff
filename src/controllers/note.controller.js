@@ -14,10 +14,10 @@ export const getAllNote = async (req, res, next) => {
 
 export const createNote = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, description, tags, isPinned, isArchived, color, tasks } = req.body;
+  const { title, description, labels, isPinned, isArchived, color, type, tasks } = req.body;
 
   try {
-    const newNote = new Note({ userId, title, description, tags, isPinned, isArchived, color, tasks });
+    const newNote = new Note({ userId, title, description, labels, isPinned, isArchived, color, type, tasks });
     await newNote.save();
 
     // now fetch all the notes
@@ -31,13 +31,13 @@ export const createNote = async (req, res, next) => {
 export const updateNote = async (req, res, next) => {
   const userId = req.user.id;
   const noteId = req.params.id;
-  const { title, description, tags, isPinned, isArchived, color, tasks } = req.body;
+  const { title, description, labels, isPinned, isArchived, color, type, tasks } = req.body;
 
   try {
     const validNote = await Note.findById(noteId);
 
     if (validNote?.userId === userId) {
-      const updatedNote = { title, description, tags, isPinned, isArchived, color, tasks };
+      const updatedNote = { title, description, labels, isPinned, isArchived, color, type, tasks };
       await Note.updateOne({ _id: noteId }, { $set: updatedNote });
 
       // now fetch all the notes

@@ -5,10 +5,11 @@ const noteSchema = new Schema(
     userId: { type: String, required: true },
     title: { type: String },
     description: { type: String },
-    tags: { type: [String], default: [] },
+    labels: { type: [String], default: null },
     isPinned: { type: Boolean, default: false },
     isArchived: { type: Boolean, default: false },
     color: { type: String, default: null },
+    type: { type: String, required: true },
     tasks: { type: [{ title: String, checked: Boolean, order: Number }], default: null }
   },
   { timestamps: true }
