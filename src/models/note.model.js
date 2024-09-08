@@ -9,6 +9,7 @@ const noteSchema = new Schema(
     isPinned: { type: Boolean, default: false },
     isArchived: { type: Boolean, default: false },
     color: { type: String, default: null },
+    dueDateTime: { type: String, default: null },
     type: { type: String, required: true },
     tasks: { type: [{ title: String, checked: Boolean, order: Number }], default: null }
   },
