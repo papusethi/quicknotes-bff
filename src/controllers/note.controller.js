@@ -14,7 +14,7 @@ export const getAllNote = async (req, res, next) => {
 
 export const createNote = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, description, labels, isPinned, isArchived, color, type, tasks } = req.body;
+  const { title, description, labels, isPinned, isArchived, color, dueDateTime, type, tasks } = req.body;
 
   try {
     const newNote = new Note({
