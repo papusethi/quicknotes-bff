@@ -6,6 +6,7 @@ const noteSchema = new Schema(
     title: { type: String },
     description: { type: String },
     labels: { type: [String], default: null },
+    folderId: { type: String, default: null },
     isPinned: { type: Boolean, default: false },
     isArchived: { type: Boolean, default: false },
     color: { type: String, default: null },
