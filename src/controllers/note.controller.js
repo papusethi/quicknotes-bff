@@ -14,7 +14,8 @@ export const getAllNote = async (req, res, next) => {
 
 export const createNote = async (req, res, next) => {
   const userId = req.user.id;
-  const { title, description, labels, isPinned, isArchived, color, dueDateTime, type, tasks, folderId } = req.body;
+  const { title, description, labels, isPinned, isArchived, isDeleted, color, dueDateTime, type, tasks, folderId } =
+    req.body;
 
   try {
     const newNote = new Note({
@@ -24,6 +25,7 @@ export const createNote = async (req, res, next) => {
       labels,
       isPinned,
       isArchived,
+      isDeleted,
       color,
       dueDateTime,
       type,
@@ -43,7 +45,8 @@ export const createNote = async (req, res, next) => {
 export const updateNote = async (req, res, next) => {
   const userId = req.user.id;
   const noteId = req.params.id;
-  const { title, description, labels, isPinned, isArchived, color, dueDateTime, type, tasks, folderId } = req.body;
+  const { title, description, labels, isPinned, isArchived, isDeleted, color, dueDateTime, type, tasks, folderId } =
+    req.body;
 
   try {
     const validNote = await Note.findById(noteId);
@@ -55,6 +58,7 @@ export const updateNote = async (req, res, next) => {
         labels,
         isPinned,
         isArchived,
+        isDeleted,
         color,
         dueDateTime,
         type,

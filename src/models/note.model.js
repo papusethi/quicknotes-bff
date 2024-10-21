@@ -9,6 +9,7 @@ const noteSchema = new Schema(
     folderId: { type: String, default: null },
     isPinned: { type: Boolean, default: false },
     isArchived: { type: Boolean, default: false },
+    isDeleted: { type: Boolean, default: false },
     color: { type: String, default: null },
     dueDateTime: { type: String, default: null },
     type: { type: String, required: true },
