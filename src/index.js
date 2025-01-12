@@ -31,7 +31,7 @@ const app = express();
 
 // Server listening.
 app.listen(port, hostname, () => {
-  console.log(`QuikNotes server is running: http://${hostname}:${port}`);
+  console.log(`QuickNotes server is running: http://${hostname}:${port}`);
 });
 
 // Middlewares usage.
